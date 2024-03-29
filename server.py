@@ -22,13 +22,14 @@ class Server:
                     del self.users[str(address)]
                     connection.close()
                     break
-                self.users[str(address)] = data.decode("utf-8")
+                self.users[str(address)] = json.loads(data.decode("utf-8"))
                 print(self.users)
                 game_state = json.dumps(self.users)
                 connection.send(game_state.encode("utf-8"))
             except:
-                del self.users[str(address)]
-                break
+                pass
+                #del self.users[str(address)]
+                #break
 
     def start(self):
         print("Server is running")
